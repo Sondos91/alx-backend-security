@@ -1,0 +1,5 @@
+Django>=4.2.0,<5.0.0
+django-ipgeolocation>=1.0.0
+django-ratelimit>=4.1.0
+celery>=5.3.0
+redis>=4.5.0

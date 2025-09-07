@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Request Logs</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        table { border-collapse: collapse; width: 100%; }
+        th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
+        th { background-color: #f2f2f2; }
+        tr:nth-child(even) { background-color: #f9f9f9; }
+    </style>
+</head>
+<body>
+    <h1>Recent Request Logs</h1>
+    <p>Total logs: {{ logs|length }}</p>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>IP Address</th>
+                <th>Location</th>
+                <th>Path</th>
+                <th>Timestamp</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for log in logs %}
+            <tr>
+                <td>{{ log.ip_address }}</td>
+                <td>
+                    {% if log.city and log.country %}
+                        {{ log.city }}, {{ log.country }}
+                    {% elif log.country %}
+                        {{ log.country }}
+                    {% else %}
+                        <em>Unknown</em>
+                    {% endif %}
+                </td>
+                <td>{{ log.path }}</td>
+                <td>{{ log.timestamp|date:"Y-m-d H:i:s" }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="4">No logs available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    
+    <p><a href="/test/">Test the middleware</a></p>
+</body>
+</html>
